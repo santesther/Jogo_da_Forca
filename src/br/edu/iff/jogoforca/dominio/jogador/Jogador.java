@@ -42,6 +42,10 @@ public class Jogador extends ObjetoDominioImpl {
         this.pontuacao = pontuacao;
     }
 
+    public void atualizarPontuacao(int pontuacao) {
+		this.pontuacao = pontuacao;
+	}
+
     @Override
     public String toString() {
         return "Jogador{" +
