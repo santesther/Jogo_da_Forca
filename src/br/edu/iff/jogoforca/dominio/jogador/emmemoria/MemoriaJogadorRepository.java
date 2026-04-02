@@ -62,9 +62,11 @@ public class MemoriaJogadorRepository implements JogadorRepository {
 
     @Override
     public Jogador getPorNome(String nome) {
-        return pool.values().stream()
-                .filter(jogador -> jogador.getNome().equals(nome))
-                .findFirst()
-                .orElse(null);
+        for (Jogador j : pool.values()) {
+            if (j.getNome().equalsIgnoreCase(nome)) {
+                return j;
+            }
+        }
+        return null;
     }
 }

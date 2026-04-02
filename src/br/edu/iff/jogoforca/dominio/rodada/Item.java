@@ -56,6 +56,9 @@ public class Item extends ObjetoDominioImpl {
     }
 
     void arriscar(String palavra) {
+        if (this.palavraArriscada != null) {
+            throw new RuntimeException("Este item já foi arriscado.");
+        }
         this.palavraArriscada = palavra;
     }
 

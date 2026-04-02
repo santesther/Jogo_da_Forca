@@ -101,8 +101,11 @@ public class Rodada extends ObjetoDominioImpl {
     }
 
     public void tentar(char codigo) {
-        if (this.encerrou()) {
+        if (this.descobriu() || this.getQtdeTentativasRestantes() == 0) {
             throw new RuntimeException("Rodada já encerrou.");
+        }
+        if (this.arriscou()) {
+            throw new RuntimeException("Você já arriscou, não pode mais tentar letras.");
         }
         boolean acertou = false;
         for (Item item : this.itens) {
@@ -117,14 +120,19 @@ public class Rodada extends ObjetoDominioImpl {
     }
 
     public void arriscar(String[] palavras) {
-        if (this.encerrou()) {
+        if (this.descobriu() || this.getQtdeTentativasRestantes() == 0) {
             throw new RuntimeException("Rodada já encerrou.");
+        }
+        if (this.arriscou()) {
+            throw new RuntimeException("Você já arriscou nesta rodada.");
         }
         for (int i = 0; i < this.itens.length; i++) {
             this.itens[i].arriscar(palavras[i]);
         }
+
         if (this.encerrou()) {
-            this.jogador.atualizarPontuacao(this.calcularPontos());
+            int pontos = this.calcularPontos();
+            this.jogador.atualizarPontuacao(pontos);
         }
     }
 
